@@ -1,0 +1,47 @@
+# Specify arch of VM, otherwise defaults to host's arch
+arch: "x86_64"
+
+# Use Rosetta for virtualization
+# https://github.com/lima-vm/lima/blob/5a9bca3d09481ed7109b14f8d3f0074816731f43/examples/experimental/vz.yaml
+# vmType: "vz"
+# rosetta:
+#   enabled: true
+#   binfmt: true
+# networks:
+#   - vzNAT: true
+
+cpus: 8
+memory: "8GiB"
+disk: "100GiB"
+
+images:
+- location: "./result/nixos.img"
+  arch: "x86_64"
+# - location: "./result/nixos+podman.aarch64-linux.qcow2"
+#   arch: "aarch64"
+
+containerd:
+  system: false
+  user: false
+
+mounts:
+- location: "~"
+  9p:
+    cache: "fscache"
+- location: "/tmp/lima"
+  writable: true
+  9p:
+    cache: "mmap"
+mountType: "9p" # change to virtiofs for 'vz' vmType
+
+portForwards:
+- guestSocket: "/run/user/{{.UID}}/podman/podman.sock"
+  hostSocket: "{{.Dir}}/sock/podman.sock"
+
+message: |
+  To run `podman` on the host (assumes podman-remote is installed), run the following commands:
+  ------
+  podman system connection add lima-{{.Name}} "unix://{{.Dir}}/sock/podman.sock"
+  podman system connection default lima-{{.Name}}
+  podman{{if eq .HostOS "linux"}} --remote{{end}} run quay.io/podman/hello
+  ------
