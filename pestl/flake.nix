@@ -1,21 +1,27 @@
 {
-  description = "A simple elixir starting template";
+  description = "A PESTL stack starting template";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, utils }: 
+  outputs = { self, nixpkgs, utils }:
     utils.lib.eachDefaultSystem (system:
-      let 
+      let
         pkgs = import nixpkgs { inherit system; };
-      in rec {
+      in
+      rec {
         devShell = with pkgs; (mkShell.override { stdenv = pkgs.stdenv; } {
           buildInputs = [
             nixpkgs-fmt
             elixir
             elixir_ls
+            nodejs
+            nodePackages.pnpm
+            podman
+            podman-compose
+            postgresql
           ];
         });
       }

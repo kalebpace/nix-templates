@@ -1,0 +1,5 @@
+{
+    "nixEnvSelector.suggestion": false,
+    "elixirLS.projectDir": "./app",
+    "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix"
+}

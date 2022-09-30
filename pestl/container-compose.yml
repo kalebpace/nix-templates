@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db:
+    image: docker.io/postgres:14.5-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - data:/var/lib/postgresql/data
+      - ./config/db/postgresql.conf:/usr/local/share/postgresql/postgresql.conf
+    environment:
+      - POSTGRES_PASSWORD=postgres
+
+volumes:
+  data:

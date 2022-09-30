@@ -15,6 +15,10 @@
         path = ./minimal;
       };
 
+      pestl = {
+        path = ./pestl;
+      };
+
       vscode-integration = {
         path = ./vscode-integration;
       };
