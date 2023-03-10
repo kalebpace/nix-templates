@@ -1,26 +1,29 @@
 {
-  description = "A bowl of frosted flakes";
-
-  outputs = { self, nixpkgs }: {
+  outputs = { self }: {
     templates = {
-      cosmopolitan-c = {
-        path = ./cosmopolitan-c;
+      container = {
+        path = ./container;
       };
 
-      cosmopolitan-rs = {
-        path = ./cosmopolitan-rs;
+      flake = {
+        path = ./flake;
+        withVSCode = {
+          path = ./flake/withVSCode;
+        };
+      };
+      
+      rust = {
+        path = ./rust;
+        withVSCode = {
+          path = ./rust/withVSCode;
+        };
       };
 
-      minimal = {
-        path = ./minimal;
-      };
-
-      pestl = {
-        path = ./pestl;
-      };
-
-      vscode-integration = {
-        path = ./vscode-integration;
+      zig = {
+        path = ./zig;
+        withVSCode = {
+          path = ./zig/withVSCode;
+        };
       };
     };
   };
