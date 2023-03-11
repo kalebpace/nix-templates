@@ -8,6 +8,9 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        buildInputs = with pkgs; [
+
+        ];
       in
       rec {
         packages = {
@@ -25,12 +28,8 @@
         devShells = {
           default = with pkgs; (mkShell.override { stdenv = stdenvNoCC; } {
               # https://nixos.wiki/wiki/Development_environment_with_nix-shell
-              nativeBuildInputs = [ 
+              nativeBuildInputs = buildInputs ++ [ 
                 # Tools we need in our shell
-              ];
-
-              buildInputs = [
-                # Dependencies we need in our shell AND our 'nix build' env
               ];
             });
         };

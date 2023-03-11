@@ -8,6 +8,9 @@
     utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        buildInputs = with pkgs; [
+          # Dependencies we need in our shell AND our 'nix build' env
+        ];
 
         # https://nixos.wiki/wiki/VSCodium
         vsCodeSettings = (builtins.fromJSON (builtins.readFile ".vscode/settings.json"));
@@ -19,14 +22,12 @@
             asvetliakov.vscode-neovim
           ] ++ vscode-utils.extensionsFromVscodeMarketplace [
             # Add any extensions directly from Official Microsoft Marketplace
-            # Example:
-            # {
-            #   # ms-vscode-remote.vscode-remote-extensionpack
-            #   name = "vscode.remote-extensionpack";
-            #   publisher = "ms-vscode-remote";
-            #   version = "latest";
-            #   sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            # }
+            {
+              name = "gitlens";
+              publisher = "eamodio";
+              version = "latest";
+              sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+            }
           ];
         };
       in
@@ -46,14 +47,10 @@
         devShells = {
           default = with pkgs; (mkShell.override { stdenv = stdenvNoCC; } {
             # https://nixos.wiki/wiki/Development_environment_with_nix-shell
-            nativeBuildInputs = [ 
+            nativeBuildInputs = buildInputs ++ [
               # Tools we need in our shell
               vsCodeWithExtensions
               neovim
-            ];
-
-            buildInputs = [
-              # Dependencies we need in our shell AND our 'nix build' env
             ];
           });
         };
