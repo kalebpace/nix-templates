@@ -26,7 +26,7 @@
               name = "gitlens";
               publisher = "eamodio";
               version = "latest";
-              sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+              sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
             }
           ];
         };

@@ -48,13 +48,13 @@
           ] ++ vscode-utils.extensionsFromVscodeMarketplace [
             # Add any extensions directly from Official Microsoft Marketplace
             # Example:
-            # {
-            #   # ms-vscode-remote.vscode-remote-extensionpack
-            #   name = "vscode.remote-extensionpack";
-            #   publisher = "ms-vscode-remote";
-            #   version = "latest";
-            #   sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-            # }
+            {
+              # ms-vscode-remote.vscode-remote-extensionpack
+              name = "vscode.remote-extensionpack";
+              publisher = "ms-vscode-remote";
+              version = "latest";
+              sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+            }
           ];
         };
       in
