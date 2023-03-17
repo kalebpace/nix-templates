@@ -9,13 +9,14 @@
       let
         pkgs = import nixpkgs { inherit system; };
         buildInputs = with pkgs; [
-
+          # Dependencies we need in our shell AND our 'nix build' env
         ];
       in
       rec {
         packages = {
           default = with pkgs.stdenvNoCC; mkDerivation {
             name = "hello-nix";
+            inherit buildInputs;
             src = ./.;
             phases = [ "unpackPhase" "buildPhase" "installPhase" ];
             installPhase = ''

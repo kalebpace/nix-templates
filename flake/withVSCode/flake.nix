@@ -35,6 +35,7 @@
         packages = {
           default = with pkgs.stdenvNoCC; mkDerivation {
             name = "hello-nix";
+            inherit buildInputs;
             src = ./.;
             phases = [ "unpackPhase" "buildPhase" "installPhase" ];
             installPhase = ''
